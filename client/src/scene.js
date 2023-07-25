@@ -1,18 +1,18 @@
-import React, { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { useRef } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
 
 const Box = () => {
-  const meshRef = useRef();
+  const meshRef = useRef()
   useFrame((state, delta, xrFrame) => {
-    meshRef.current.rotation.y += delta;
-  });
+    meshRef.current.rotation.y += delta
+  })
   return (
     <mesh ref={meshRef}>
       <boxGeometry args={[3, 3, 3]} />
       <meshStandardMaterial />
     </mesh>
-  );
-};
+  )
+}
 const HanamiScene = () => {
   return (
     <div id="canvas-container">
@@ -22,7 +22,7 @@ const HanamiScene = () => {
         <Box />
       </Canvas>
     </div>
-  );
-};
+  )
+}
 
-export default HanamiScene;
+export default HanamiScene

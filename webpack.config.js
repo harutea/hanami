@@ -1,8 +1,9 @@
 // const path = require("path");
 // const HtmlWebpackPlugin = require("html-webpack-plugin");
-import path from 'path';
-import { fileURLToPath } from 'url';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from "path";
+import { fileURLToPath } from "url";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import webpack from "webpack";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,7 +18,7 @@ export default {
     proxy: {
       "/socket.io": {
         target: "http://localhost:3000",
-        ws: true
+        ws: true,
       },
     },
   },
@@ -33,6 +34,9 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./client/src/index.html",
+    }),
+    new webpack.ProvidePlugin({
+      React: "react",
     }),
   ],
 };
