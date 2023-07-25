@@ -1,11 +1,25 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const path = require("path");
+// const HtmlWebpackPlugin = require("html-webpack-plugin");
+import path from 'path';
+import { fileURLToPath } from 'url';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-module.exports = {
-  entry: "./src/client/index.js",
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default {
+  entry: "./client/src/index.js",
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist/client"),
+    path: path.resolve(__dirname, "client/build"),
+  },
+  devServer: {
+    proxy: {
+      "/socket.io": {
+        target: "http://localhost:3000",
+        ws: true
+      },
+    },
   },
   module: {
     rules: [
@@ -18,7 +32,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/client/index.html",
+      template: "./client/src/index.html",
     }),
   ],
 };

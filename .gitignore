@@ -1,4 +1,5 @@
 .DS_Store
+client/dist
 
 # Logs
 logs
