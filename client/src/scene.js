@@ -13,6 +13,7 @@ const Box = () => {
     </mesh>
   )
 }
+
 const HanamiScene = () => {
   return (
     <div id="canvas-container">
