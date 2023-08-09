@@ -6,23 +6,31 @@ import Control from './control.js'
 
 const Character = (props) => {
   const { camera } = useThree()
-  const { forward, backward, left, right } = Control()
   const direction = new THREE.Vector3()
 
   const [ref, api] = useSphere(() => ({
     mass: 1,
+    type: 'Dynamic',
+    position: [0, 10, 0],
     ...props,
   }))
 
-  useFrame(() => {
+  const { forward, backward, left, right } = Control()
+  const velocity = useRef([0, 0, 0])
+
+  useEffect(() => {
+    api.velocity.subscribe((v) => (velocity.current = v))
+  }, [])
+
+  useFrame((state) => {
     ref.current.getWorldPosition(camera.position)
     direction.set(
-      Number(forward) - Number(backward),
+      Number(right) - Number(left),
       0,
-      Number(left) - Number(right)
+      Number(backward) - Number(forward)
     )
-    direction.normalize().applyEuler(camera.position)
-    api.velocity.set(direction.x, 0, direction.y)
+    direction.normalize().multiplyScalar(3).applyEuler(camera.rotation)
+    api.velocity.set(direction.x, 0, direction.z)
   })
 
   return (

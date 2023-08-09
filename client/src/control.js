@@ -11,7 +11,7 @@ const Control = () => {
   const keyToMove = (key) => keyMap[key]
 
   const [movement, setMovement] = useState({
-    foward: false,
+    forward: false,
     backward: false,
     left: false,
     right: false,

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { PointerLockControls } from '@react-three/drei'
+import { PointerLockControls, Sky } from '@react-three/drei'
 import Character from './character.js'
 import Floor from './floor.js'
 import { Physics } from '@react-three/cannon'
@@ -13,7 +13,7 @@ const Box = () => {
   return (
     <mesh ref={meshRef}>
       <boxGeometry args={[3, 3, 3]} />
-      <meshStandardMaterial />
+      <meshStandardMaterial color="blue" />
     </mesh>
   )
 }
@@ -24,11 +24,13 @@ const HanamiScene = () => {
       <Canvas shadows camera={{ fov: 50 }}>
         <ambientLight intensity={1} />
         <spotLight penumbra={0.5} position={[10, 10, 5]} castShadow />
-        <Physics gravity={[0, 0, 0]}>
-          <Box />
+
+        <Physics gravity={[0, -9.8, 0]}>
           <Character controls args={[0.5]} position={[0, 2, 0]} color="blue" />
-          <Floor rotation={[Math.PI / -2, 0, 0]} color="black" />
+          <Floor rotation={[Math.PI / -2, 0, 0]} color="white" />
         </Physics>
+
+        <Sky />
 
         <PointerLockControls />
       </Canvas>
